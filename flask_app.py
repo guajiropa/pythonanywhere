@@ -1,5 +1,5 @@
 #
-# A very simple Flask Hello World app for you to get started with...
+# A simple Flask CRUD with login
 #
 
 from flask import Flask, redirect, render_template, request, url_for
