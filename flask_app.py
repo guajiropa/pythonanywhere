@@ -66,7 +66,7 @@ def update():
     return redirect(url_for('index'))
 
 
-@app.route("/delete", methods=["POST"])
+@app.route('/delete', methods=["POST"])
 def delete():
     try:
         content = request.form.get("content")
@@ -78,4 +78,6 @@ def delete():
         return "Could not delete this comment! {}".format(e)
 
 
-
+@app.route('/login/')
+def login():
+    return render_template("login_page.html")
