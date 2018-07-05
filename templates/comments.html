@@ -24,6 +24,15 @@
                 </button>
                 <a class="navbar-brand" href="/">Casa De Bobo</a>
             </div>
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                {% else %}
+                     <li><a href="{{ url_for('login') }}">Log in</a></li>
+                {% endif %}
+
+            </ul>
         </div>
     </nav>
 
@@ -44,7 +53,6 @@
                     <form method="post" action="/delete">
                         <input type="hidden" value="{{comment.content}} " name="content">
                         <input type="submit" class="btn btn-danger" value="Delete">
-
                     </form>
                 </div>
             </div>
@@ -53,10 +61,14 @@
 
         <div class="row">
             <br />
+
+            {% if current_user.is_authenticated %}
             <form action="." method="POST">
                 <textarea name="contents" class="form-control" placeholder="Enter a comment"></textarea>
                 <input type="submit" class="btn btn-success" value="Post comment">
             </form>
+            {% endif %}
+
         </div>
     </div><!-- end main page container -->
 </body>
