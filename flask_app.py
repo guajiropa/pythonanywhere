@@ -1,7 +1,7 @@
 #
 # A simple Flask CRUD with login
 #
-
+from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_user, logout_user, login_required, current_user
@@ -81,7 +81,8 @@ class Comment(db.Model):
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "GET":
-        return render_template("comments.html", comments=Comment.query.all())
+        return render_template("comments.html", comments=Comment.query.all(),
+                                timestamp=datetime.now())
 
     if not current_user.is_authenticated:
         return redirect(url_for('index'))

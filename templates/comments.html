@@ -54,6 +54,9 @@
                         <input type="hidden" value="{{comment.content}} " name="content">
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
+                    <div>
+                        <small>{{ timestamp.strftime("%A, %B %d %Y at %H:%M") }} by anonymous</small>
+                    </div>
                 </div>
             </div>
         </div>
