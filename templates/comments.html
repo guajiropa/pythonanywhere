@@ -23,13 +23,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/">Casa De Bobo</a>
-
             </div>
         </div>
     </nav>
 
-
     <div class="container"><!-- begin main page container -->
+
         {% for comment in comments %}
         <div class="row">
             <div class="panel panel-primary">
@@ -51,6 +50,7 @@
             </div>
         </div>
         {% endfor %}
+
         <div class="row">
             <br />
             <form action="." method="POST">
