@@ -55,7 +55,15 @@
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
                     <div>
-                        <small>{{ timestamp.strftime("%A, %B %d %Y at %H:%M") }} by anonymous</small>
+                        <small>
+                            Posted
+                            {% if comment.posted %}
+                                {{ comment.posted.strftime("%A, %B %d %Y at %H:%M") }}
+                            {% else %}
+                                at some unknown time
+                            {% endif %}
+                                by anonymous
+                        </small>
                     </div>
                 </div>
             </div>
