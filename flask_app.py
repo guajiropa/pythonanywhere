@@ -38,14 +38,16 @@ login_manager.init_app(app)
 
 
 #########################
-# DATA MODELS & CLASSES #
+# DATA CLASSES(MODELS) #
 #########################
 
-class User(UserMixin):
+class User(UserMixin, db.Model):
 
-    def __init__(self, username, password_hash):
-        self.username = username
-        self.password_hash = password_hash
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(128))
+    password_hash = db.Column(db.String(128))
 
 
     def check_password(self, password):
@@ -56,18 +58,6 @@ class User(UserMixin):
         return self.username
 
 
-# Test data for testing the login
-all_users = {
-    "admin": User("admin", generate_password_hash("secret")),
-    "bob": User("bob", generate_password_hash("less-secret")),
-    "caroline": User("caroline", generate_password_hash("completely-secret")),
-}
-
-@login_manager.user_loader
-def load_user(user_id):
-    return all_users.get(user_id)
-
-
 class Comment(db.Model):
 
     __tablename__ = "comments"
@@ -75,6 +65,14 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(4096))
     posted = db.Column(db.DateTime, default=datetime.now)
+    commenter_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)
+    commenter = db.relationship('User', foreign_keys=commenter_id)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.filter_by(username=user_id).first()
+
 
 ###################
 # ROUTING SECTION #
@@ -89,7 +87,7 @@ def index():
     if not current_user.is_authenticated:
         return redirect(url_for('index'))
 
-    comment = Comment(content=request.form["contents"])
+    comment = Comment(content=request.form["contents"], commenter=current_user)
     db.session.add(comment)
     db.session.commit()
     return redirect(url_for('index'))
@@ -127,11 +125,9 @@ def login():
     if request.method == "GET":
         return render_template("login_page.html", error=False)
 
-    username = request.form["username"]
-
-    if  username not in all_users:
+    user = load_user(request.form["username"])
+    if  user is None:
         return render_template("login_page.html", error=True)
-    user = all_users[username]
 
     if not user.check_password(request.form["password"]):
         return render_template("login_page.html", error=True)
