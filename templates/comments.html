@@ -8,8 +8,6 @@
                         <div class="panel-title">Comment:</div>
                     </div>
                     <div class="panel-body">
-
-<<<<<<< HEAD
                     {% if current_user.is_authenticated %}
                         <form method="post" action="/update">
                             <input type="hidden" value="{{comment.content}}" name="oldcontent" />
@@ -32,40 +30,6 @@
                         <div>
                             <small>
                                 Posted
-=======
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-    integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-    crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="/static/content/site.css">
-<title>My comments page</title>
-</head>
-
-<body>
-    <nav class="navbar navbar-inverse">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Casa De Bobo</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-
-                {% if current_user.is_authenticated %}
-                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
-                {% else %}
-                     <li><a href="{{ url_for('login') }}">Log in</a></li>
-                {% endif %}
-
-            </ul>
-        </div>
-    </nav>
->>>>>>> 945cc47e6fce43407c7f7993fdce421f2e4f3947
-
                                 {% if comment.posted %}
                                     {{ comment.posted.strftime("%A, %B %d %Y at %H:%M") }}
                                 {% else %}
@@ -78,77 +42,17 @@
                                         anonymous
                                     {% endif %}
 
-<<<<<<< HEAD
                             </small>
                         </div>
-=======
-        {% for comment in comments %}
-        <div class="row">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="panel-title">Comment:</div>
-                </div>
-                <div class="panel-body">
-
-                {% if current_user.is_authenticated %}
-                    <form method="post" action="/update">
-                        <input type="hidden" value="{{comment.content}}" name="oldcontent" />
-                        <input type="text" class="form-control" value="{{comment.content}}" name="newcontent" />
-                        <input type="submit" class="btn btn-success" value="Update" />
-                    </form>
-                {% else %}
-                    <form method="post" action="#">
-                        <input type="text" class="form-control" value="{{comment.content}}" name="newcontent" />
-                    </form>
-                {% endif %}
-
-                {% if current_user.is_authenticated %}
-                    <form method="post" action="/delete">
-                        <input type="hidden" value="{{comment.content}} " name="content">
-                        <input type="submit" class="btn btn-danger" value="Delete">
-                    </form>
-                {% endif %}
-
-                    <div>
-                        <small>
-                            Posted
-
-                            {% if comment.posted %}
-                                {{ comment.posted.strftime("%A, %B %d %Y at %H:%M") }}
-                            {% else %}
-                                at some unknown time
-                            {% endif %}
-                                by
-                                {% if comment.commenter %}
-                                    {{ comment.commenter.username }}
-                                {% else %}
-                                    anonymous
-                                {% endif %}
-
-                        </small>
->>>>>>> 945cc47e6fce43407c7f7993fdce421f2e4f3947
                     </div>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
 
-        <div class="row">
-<<<<<<< HEAD
-=======
-            <br />
+            {% endfor %}
 
->>>>>>> 945cc47e6fce43407c7f7993fdce421f2e4f3947
             {% if current_user.is_authenticated %}
             <form action="." method="POST">
                 <textarea name="contents" class="form-control" placeholder="Enter a comment"></textarea>
                 <input type="submit" class="btn btn-success" value="Post comment">
             </form>
             {% endif %}
-<<<<<<< HEAD
-=======
-
->>>>>>> 945cc47e6fce43407c7f7993fdce421f2e4f3947
-        </div>
-
     {% endblock %}
