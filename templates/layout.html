@@ -17,7 +17,7 @@
         {% else %}
             <a href="{{ url_for('login')}}" class="navbar-item">Login</a>
         {% endif %}
-        <a href="#" class="navbar-item">About</a>
+        <a href="{{ url_for('comments') }}" class="navbar-item">Comments</a>
         <a href="{{ url_for('index') }}" class="navbar-item">Home</a>
     </nav>
     <div class="body-content">

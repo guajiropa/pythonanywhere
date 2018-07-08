@@ -69,31 +69,35 @@ class Comment(db.Model):
     commenter = db.relationship('User', foreign_keys=commenter_id)
 
 
+###############################
+# ROUTING & FUNCTIONS SECTION #
+###############################
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.filter_by(username=user_id).first()
 
 
-###################
-# ROUTING SECTION #
-###################
-
-@app.route('/', methods=["GET", "POST"])
+@app.route('/')
 def index():
+    return render_template('index.html')
+
+
+@app.route('/comments/', methods=["GET", "POST"])
+def comments():
     if request.method == "GET":
         return render_template("comments.html", comments=Comment.query.all(),
                                 timestamp=datetime.now())
 
     if not current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('comments'))
 
     comment = Comment(content=request.form["contents"], commenter=current_user)
     db.session.add(comment)
     db.session.commit()
-    return redirect(url_for('index'))
+    return redirect(url_for('comments'))
 
 
-@app.route('/update', methods=["POST"])
+@app.route('/comment/update', methods=["POST"])
 def update():
     try:
         newcontent = request.form.get("newcontent")
@@ -105,17 +109,17 @@ def update():
         print("Could not update book title!")
         print(e)
 
-    return redirect(url_for('index'))
+    return redirect(url_for('comments'))
 
 
-@app.route('/delete', methods=["POST"])
+@app.route('/comment/delete', methods=["POST"])
 def delete():
     try:
         content = request.form.get("content")
         comment = Comment.query.filter_by(content=content).first()
         db.session.delete(comment)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('comments'))
     except Exception as e:
         return "Could not delete this comment! {}".format(e)
 
