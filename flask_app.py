@@ -12,9 +12,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
-################################
-# SETUP THE MySQL DATABASE ORM #
-################################
+#####################################
+# SETUP THE SQLAlchemy DATABASE ORM #
+#####################################
 
 SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://{username}:{password}@{hostname}/{databasename}".format(
     username="guajiropa",
