@@ -5,8 +5,8 @@ from datetime import datetime
 from flask import Flask, redirect, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import login_user, logout_user, login_required, current_user
-from flask_login import LoginManager, UserMixin
+from flask_login import login_user, logout_user, login_required, current_user, \
+                            LoginManager, UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
@@ -106,7 +106,7 @@ def update():
         comment.content = newcontent
         db.session.commit()
     except Exception as e:
-        print("Could not update book title!")
+        print("Could not update this comment!")
         print(e)
 
     return redirect(url_for('comments'))
