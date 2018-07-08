@@ -97,7 +97,7 @@ def comments():
     return redirect(url_for('comments'))
 
 
-@app.route('/comment/update', methods=["POST"])
+@app.route('/update', methods=["POST"])
 def update():
     try:
         newcontent = request.form.get("newcontent")
@@ -112,7 +112,7 @@ def update():
     return redirect(url_for('comments'))
 
 
-@app.route('/comment/delete', methods=["POST"])
+@app.route('/delete', methods=["POST"])
 def delete():
     try:
         content = request.form.get("content")
