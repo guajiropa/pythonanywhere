@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
 </head>
 <body>
-    <nav class="navbar">
-        <a href="/" class="navbar-brand">CasaPy</a>
+    <nav class="navbar navbar-fixed-top">
+        <a class="navbar-brand" href="/">CasaPy</a>
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('logout') }}" class="navbar-item">Logout</a>
         {% else %}
